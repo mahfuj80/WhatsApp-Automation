@@ -34,16 +34,26 @@ This project enables you to automate sending WhatsApp messages using Python. You
 
 ## Usage
 
-1. **Prepare Your Phone Numbers**: Ensure all phone numbers include the country code and are formatted correctly (e.g., `+8801892152455` for Bangladesh).
+1. **Prepare Your Phone Numbers**: Create a file named `numbers.txt` and list each phone number on a new line. Ensure all phone numbers include the country code and are formatted correctly (e.g., `+8801892152455` for Bangladesh).
 
-2. **Modify the Script**: Update the list of phone numbers and the message in the script.
+   **numbers.txt**:
+
+   ```
+   +8801892152455
+   +8801306627256
+   +8801306627257
+   ```
+
+2. **Modify the Script**: The script will read phone numbers from the `numbers.txt` file and send the specified message.
 
    ```python
    import pywhatkit as kit
    import time
 
-   # List of phone numbers (with country codes) to send the message to
-   phone_numbers = ["+8801892152455", "+8801306627256", "+8801306627257"]
+   # Read phone numbers from the numbers.txt file
+   with open('numbers.txt', 'r') as file:
+       phone_numbers = [line.strip() for line in file]
+
    message = "Hello from Oxy Manager! This is an instant WhatsApp message."
 
    # Loop through each phone number and send the message
