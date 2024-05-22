@@ -1,20 +1,28 @@
 import pywhatkit as kit
+import pyautogui
 import time
 
-# List of phone numbers with correct format (country code + number)
 # Read phone numbers from the numbers.txt file
 with open('numbers.txt', 'r') as file:
     phone_numbers = [line.strip() for line in file]
 
+# Read the message from sms.txt
+with open('sms.txt', 'r') as file:
+    message = file.read()
 
-# The message to send
-message = "Hello from Oxy Manager! This is an instant WhatsApp message."
+# Path to the image
+image_path = "images/message.jpg"  # Replace with your image path
 
-# Loop through each phone number and send the message
+# Loop through each phone number and send the image with the message
 for phone_number in phone_numbers:
     try:
-        kit.sendwhatmsg_instantly(phone_number, message)
-        print(f"Message sent to {phone_number}")
-        time.sleep(10)  # Wait for 10 seconds before sending the next message
+        # Send the image with the message
+        kit.sendwhats_image(phone_number, image_path, message)
+        print('Message Sent to:', phone_number)
+        # Adjust this time as necessary
+        time.sleep(5)
+        # Press Ctrl + W to close the current WhatsApp Web tab
+        pyautogui.hotkey('ctrl', 'w')
+        print("Window Closed")
     except Exception as e:
-        print(f"Failed to send message to {phone_number}. Error: {e}")
+        print(f"Failed to send image to {phone_number}. Error: {e}")
